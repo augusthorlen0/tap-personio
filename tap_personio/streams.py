@@ -91,11 +91,22 @@ class EmployeesStream(PersonioStream):
                     )
                 )
             elif personio_id == "supervisor":
-                json_type = th.ObjectType()
+                json_type = th.ObjectType(
+                    th.Property("id", th.ObjectType(th.Property("value", th.IntegerType()))),
+                    th.Property("first_name", th.ObjectType(th.Property("value", th.StringType()))),
+                    th.Property("last_name", th.ObjectType(th.Property("value", th.StringType()))),
+                    th.Property("preferred_name", th.ObjectType(th.Property("value", th.StringType()))),
+                )
             elif personio_id == "subcompany":
-                json_type = th.ObjectType()
+                json_type = th.ObjectType(
+                    th.Property("id", th.IntegerType()),
+                    th.Property("name", th.StringType())
+                )
             elif personio_id == "office":
-                json_type = th.ObjectType()
+                json_type = th.ObjectType(
+                    th.Property("id", th.IntegerType()),
+                    th.Property("name", th.StringType())
+                )
             # note: the PersonioAPI is a mess, we probably need more here
 
             properties.append(th.Property(personio_id, json_type, description=attr["label"]))            
